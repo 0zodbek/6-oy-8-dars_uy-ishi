@@ -17,7 +17,7 @@ function App() {
       setIsAuth(true);
     }else{
       setIsAuth(false)
-      if( !location.pathname.includes('/register')){
+      if( !location.pathname.includes('register')){
       navigate("/login")
       }
     }
@@ -28,13 +28,13 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path='/registr' element={<Register />}></Route>
+        <Route path='/register' element={<Register />}></Route>
         <Route path='/login' element={<Login />}></Route>
         isAuth && {}
         (
           <>
 
-            <Route index element={<Home></Home>}></Route>
+            <Route path='/' element={<Home></Home>}></Route>
             
           </>
         )

@@ -21,9 +21,10 @@ function LoginPage() {
     }
     return true;
   }
-  function handleclick(event) {
+  function handleClick(event) {
     event.preventDefault();
-    navigate("/registr");
+    console.log("salom")
+    navigate('/register');
   }
   function handleSubmit(event) {
     event.preventDefault();
@@ -94,7 +95,7 @@ function LoginPage() {
             <button onClick={handleSubmit}>Login</button>
             <p>
               Don't have an account?{" "}
-              <a className={stylesL.registr} href="" onClick={handleclick}>
+              <a className={stylesL.registr} href="" onClick={handleClick}>
                 Register
               </a>
             </p>
