@@ -108,3 +108,7 @@ body {
 .login button:hover {
     background: #0288d1;
 }
+.registr{
+color:blue;
+text-decoration: underline;
+}

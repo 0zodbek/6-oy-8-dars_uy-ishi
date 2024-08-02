@@ -6,13 +6,32 @@ function LoginPage() {
   const usernameRef = useRef("");
   const passwordRef = useRef("");
   const navigate = useNavigate();
-  function handlelick(event) {
+  function validate(username, password){
+    if (username.current.value < 3) {
+      alert("username is not valid !");
+      username.current.style.outlineColor = "red";
+      username.current.focus();
+      return false;
+    }
+    if (password.current.value < 3) {
+      alert("password is not valid !");
+      password.current.focus();
+      password.current.style.outlineColor = "red";
+      return false;
+    }
+    return true;
+  }
+  function handleclick(event) {
     event.preventDefault();
-
     navigate("/registr");
   }
   function handleSubmit(event) {
     event.preventDefault();
+    const isvalid = validate(usernameRef, passwordRef);
+    if(!isvalid){
+    return
+    }
+    // navigate('/')
     const user = {
       username: usernameRef.current.value,
       password: passwordRef.current.value,
@@ -37,7 +56,10 @@ function LoginPage() {
           passwordRef.current.focus();
         }
         if (data.accessToken) {
-          navigate("/home");
+          localStorage.setItem("user", JSON.stringify(data));
+          localStorage.setItem("token", data.accessToken);
+
+          navigate("/");
         }
       })
       .catch((err) => {
@@ -71,7 +93,10 @@ function LoginPage() {
             </div>
             <button onClick={handleSubmit}>Login</button>
             <p>
-              Don't have an account? <a onClick={handlelick}>Register</a>
+              Don't have an account?{" "}
+              <a className={stylesL.registr} href="" onClick={handleclick}>
+                Register
+              </a>
             </p>
           </form>
         </div>

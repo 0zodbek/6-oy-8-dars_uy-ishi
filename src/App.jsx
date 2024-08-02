@@ -1,26 +1,42 @@
-import { useState } from "react";
-import "./App.css";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import RegistrPage from "./pages/RegistrPage";
-import LoginPage from "./pages/LoginPage/index.jsx";
-import Home from "./pages/Home";
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import Login from './pages/LoginPage';
+import Register from './pages/RegistrPage';
+import ErrorPage from "./pages/ErrorPage/Error";
+import Home from './pages/Home';
+import { useState, useEffect } from 'react';
+import './App.css'
+
 function App() {
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [isAuth, setIsAuth] = useState(false);
+  const location = useLocation();
   const navigate = useNavigate();
-  function protectedRoute({ isAuthenticated, children }) {
-    if (!isAuthenticated) {
-      navigate("/login");
+
+  useEffect(() => {
+    if (token) {
+      setIsAuth(true);
+    } else {
+      setIsAuth(false);
+      if (!location.pathname.includes('registr')) {
+        navigate('/login');
+      }
     }
-    return children;
-  }
+  }, [token, location.pathname, navigate]); 
 
   return (
-    <Routes>
-      {/* <RegistrPage/> */}
-      <Route path="/registr" element={<RegistrPage></RegistrPage>}></Route>
-      <Route path="/" element={<LoginPage></LoginPage>}></Route>
-      <Route path="/home"  element={<Home></Home>}></Route>
-      <Route path="/details"  element={<Home></Home>}></Route>
-    </Routes>
+    <div>
+      <Routes>
+        <Route path='/registr' element={<Register />}></Route>
+        <Route path='/login' element={<Login />}></Route>
+        {isAuth && (
+          <>
+          {console.log("otdik")}
+            <Route index element={<Home></Home>}></Route>
+          </>
+        )}
+        <Route path='*' element={<ErrorPage />}></Route>
+      </Routes>
+    </div>
   );
 }
 
