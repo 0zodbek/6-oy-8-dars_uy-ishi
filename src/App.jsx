@@ -11,29 +11,33 @@ function App() {
   const [isAuth, setIsAuth] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (token) {
+  useEffect(
+    function(){
+    if(token){
       setIsAuth(true);
-    } else {
-      setIsAuth(false);
-      if (!location.pathname.includes('registr')) {
-        navigate('/login');
+    }else{
+      setIsAuth(false)
+      if( !location.pathname.includes('/register')){
+      navigate("/login")
       }
     }
-  }, [token, location.pathname, navigate]); 
+    },
+    [token, location.pathname]
+    );
 
   return (
     <div>
       <Routes>
         <Route path='/registr' element={<Register />}></Route>
         <Route path='/login' element={<Login />}></Route>
-        {isAuth && (
+        isAuth && {}
+        (
           <>
-          {console.log("otdik")}
+
             <Route index element={<Home></Home>}></Route>
+            
           </>
-        )}
+        )
         <Route path='*' element={<ErrorPage />}></Route>
       </Routes>
     </div>
