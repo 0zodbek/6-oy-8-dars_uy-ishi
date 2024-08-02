@@ -32,7 +32,7 @@ function LoginPage() {
     if(!isvalid){
     return
     }
-    // navigate('/')
+    navigate('/')
     const user = {
       username: usernameRef.current.value,
       password: passwordRef.current.value,
